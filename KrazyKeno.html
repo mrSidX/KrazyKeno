@@ -1,0 +1,424 @@
+<!--
+
+KrazyKeno - written by MrSiDX
+sidthetech@gmail.com
+
+-->
+
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+{{!--<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">--}}
+<style>
+body {
+    background-color: black;
+    color : white;
+}  
+
+table {
+    border-width: 3px;
+    border-color: yellow;
+    border-style: solid;
+    font-size: 25pt;
+    text-shadow: 2px 2px #000000;
+    margin: 15px;
+    margin-bottom: 25px;
+    cursor: pointer;
+}
+
+td {
+    border-right: 3px;
+    border-style: solid;
+    border-color: yellow;
+    text-align: center;
+    padding : 3px;
+}
+
+.paytable{
+    border: 3px;
+    border-style: solid;
+    border-color: yellow;
+    text-align: center;
+    font-size: small;
+    padding : 3px;
+    /*overflow: fixed;*/
+}
+
+.tables {
+    /*width: 80%;*/
+    /*float:right;*/
+    /*overflow: fixed;*/
+}
+
+.paytablerow {
+    font-size:14px;
+}
+
+</style>
+
+
+<div class="main" style="width:100%;">
+   
+    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12" >KRAZY KENO</div>
+
+    {{!--PAYTABLES--}}
+    <div id="paytable" style="height:80%"class="payouts col-sm-2 col-md-2 col-lg-2 col-xl-2 float-left">
+    </div>
+    {{!--END PAYTABLES--}}
+   
+    <div class="board col-sm-10  col-md-10 col-lg-10 col-xl-10" >
+        {{!--THE PLAYING BOARD--}}
+        <table class="col-sm-6 col-md-6 col-lg-6 col-xl-6" style="margin-bottom: 0;">
+            <tr><td id="spot1">1</td><td id="spot2">2</td><td id="spot3">3</td><td id="spot4">4</td><td id="spot5">5</td><td id="spot6">6</td><td id="spot7">7</td><td id="spot8">8</td><td id="spot9">9</td><td id="spot10">10</td></tr>
+         <tr><td id="spot11">11</td><td id="spot12">12</td><td id="spot13">13</td><td id="spot14">14</td><td id="spot15">15</td><td id="spot16">16</td><td id="spot17">17</td><td id="spot18">18</td><td id="spot19">19</td><td id="spot20">20</td></tr>
+         <tr><td id="spot21">21</td><td id="spot22">22</td><td id="spot23">23</td><td id="spot24">24</td><td id="spot25">25</td><td id="spot26">26</td><td id="spot27">27</td><td id="spot28">28</td><td id="spot29">29</td><td id="spot30">30</td></tr>
+         <tr><td id="spot31">31</td><td id="spot32">32</td><td id="spot33">33</td><td id="spot34">34</td><td id="spot35">35</td><td id="spot36">36</td><td id="spot37">37</td><td id="spot38">38</td><td id="spot39">39</td><td id="spot40">40</td></tr>
+        </table>    
+   
+       <center> <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6" style = "height:30px; padding: 0px;" id="middlegamestatus"></div>
+   </center>
+    <table class="col-sm-6 col-md-6 col-lg-6 col-xl-6" style="margin-top: 0;">
+      <tr><td id="spot41">41</td><td id="spot42">42</td><td id="spot43">43</td><td id="spot44">44</td><td id="spot45">45</td><td id="spot46">46</td><td id="spot47">47</td><td id="spot48">48</td><td id="spot49">49</td><td id="spot50">50</td></tr>
+     <tr><td id="spot51">51</td><td id="spot52">52</td><td id="spot53">53</td><td id="spot54">54</td><td id="spot55">55</td><td id="spot56">56</td><td id="spot57">57</td><td id="spot58">58</td><td id="spot59">59</td><td id="spot60">60</td></tr>
+      <tr><td id="spot61">61</td><td id="spot62">62</td><td id="spot63">63</td><td id="spot64">64</td><td id="spot65">65</td><td id="spot66">66</td><td id="spot67">67</td><td id="spot68">68</td><td id="spot69">69</td><td id="spot70">70</td></tr>
+      <tr><td id="spot71">71</td><td id="spot72">72</td><td id="spot73">73</td><td id="spot74">74</td><td id="spot75">75</td><td id="spot76">76</td><td id="spot77">77</td><td id="spot78">78</td><td id="spot79">79</td><td id="spot80">80</td></tr>
+    </table>
+    </div>
+   
+    <div id="controls" class="controls col-sm-12 col-md-12 col-lg-12 col-xl-12">
+        <div id="status_credits" class="inline-block"></div><div id="status_wager" class="inline-block"></div>
+    </div>
+   
+    {{!--CONTROLS--}}
+    <div id="controls" class="controls col-sm-12 col-md-12 col-lg-12 col-xl-12">
+       
+     <button class="btn btn-primary btn-lg inline-block" id="betmax" onclick="betMax()">Bet Max</button>
+     <button class="btn btn-primary btn-lg inline-block" id="BetOne" onclick="betOne()">Bet One</button>
+     {{!--<button class="btn btn-primary btn-lg inline-block " id="Clear Drawn" onclick="clearDrawn()">Clear Drawn</button>--}}
+     <button class="btn btn-primary btn-lg inline-block" id="clearPicks" onclick="clearPicks()">Erase</button>
+     <button class="btn btn-primary btn-lg inline-block" id="draw" onclick="Draw()">Start</button>
+     
+        <div id="betInfo"></div>
+    </div>
+   
+</div>
+
+   
+
+Numbers: <div id="numbers"></div>
+Matched: <div id="matched">{{matched}}</div>
+
+
+<script>
+
+var denom = 1;
+var maxBet = 4;
+var credits = 1000;
+var currentBet = 0;
+var minBet = denom;
+var picked = [];
+var paytable = [];
+var current_paytable = [];
+var readyToPick = true;
+var matched = [];
+var drawSpeed = 1000;
+var matchCount = 0;
+var clear_board_between_picks = false;
+var max_pick_count = 10;
+var wager = 0;
+var last_wager = 0;
+
+var spot_pick_color = 'green'
+var table_background_color = 'blue';
+var matched_spot_color = 'yellow';
+var spot_missed_color = 'red';
+
+clearBoard();
+updateCreditStatus();
+
+function betMax(){
+    wager = maxBet;
+    updateCreditStatus();
+}
+
+function updateButtonStatus(){
+    if (picked.length < 1){
+        document.getElementById('draw').disabled = true;
+        document.getElementById('draw').setAttribute('style', "background-color: grey;");
+        document.getElementById('clearPicks').disabled = true;
+        document.getElementById('clearPicks').setAttribute('style', "background-color: grey;");
+       
+    }else{
+          document.getElementById('draw').disabled = false;
+          document.getElementById('clearPicks').disabled = false;
+    }
+}
+
+function updateCreditStatus(){
+     document.getElementById('status_credits').innerHTML="Credit " + credits;
+    document.getElementById('status_wager').innerHTML = "Bet " + wager ;
+}
+
+function betOne(){
+ 
+    if (wager < maxBet && wager < credits){
+        wager = wager + 1  
+    }
+    //     if (wager != 0 ){
+    //         wager = wager + 1;
+    //     }else {
+    //         if(credits > last_wager && last_wager != 0){
+    //             wager = last_wager;
+    //         }else{
+    //             wager = 1;
+    //         }
+    //     }
+       
+    //     //credits = credits - 1;
+    // }  
+    updateCreditStatus();
+}
+
+
+function displayPaytable(pt){
+   
+    //example
+    //[0,1,2,3,4,5,6,7,8,9,10....]
+    var inject = "";
+    for(var i =0; i<pt.length;i++){
+        if(pt[i] > 0){
+            if( i == matched.length){
+                 inject = inject + '<tr style="margin:0; padding:5px; background-color:red;" class="paytablerow" id="paytablerow' + i + '"><td>' + i + '</td><td>' + pt[i] + '</td></tr>';
+               
+            }  else {
+                 inject = inject + '<tr style="margin:0; padding:5px; background-color: black;" class="paytablerow" id="paytablerow' + i + '"><td>' + i + '</td><td>' + pt[i] + '</td></tr>';
+            }
+     
+        }
+    }
+   
+   
+    document.getElementById('paytable').innerHTML = `
+        <table class="" id="paytable_inner">
+        <tr class="paytablerow"><td>Hits</td><td>Win</td></tr>` + inject + `
+         </table>
+    `
+   
+}
+
+function gameDone(){
+    // check winnings and pay
+    credits = credits + (current_paytable[matched.length] * wager);
+    updateCreditStatus();
+    last_wager = wager;
+    document.getElementById('middlegamestatus').innerHTML = '<div style="width:100%; text-align: center; margin: 0;">Game Over</div>';
+    document.getElementById('controls').disabled = false;
+    document.getElementById('controls').setAttribute('style', 'disabled: false');
+
+}
+
+function updatePaytable(){
+   
+    var spots = picked.length;
+    // spots
+    //1
+    var r = [];
+    if (spots == 1){
+       r= [0,3]
+    }
+    if(spots == 2){
+        r=[0,1,15]
+    }
+    if(spots == 3){
+        r=[0,0,3,21]
+    }
+    if(spots == 4){
+        r=[0,0,1,8,96]
+    }
+    if(spots == 5 ){
+       r= [0,0,0,1,12,810]
+    }
+    if(spots == 6){
+        r=[0,0,0,1,3,54,1600]
+    }
+    if(spots == 7){
+       r= [0,0,0,1,15,21,46,3200]
+    }
+        if(spots == 8){
+        r=[0,0,0,1,15,21,46,3200,6400]
+    }
+        if(spots == 9){
+       r= [0,0,0,1,15,21,46,3200,6400,10000]
+    }
+        if(spots == 10){
+       r= [0,0,0,1,15,21,46,200,1600,4260,10000]
+    }
+    current_paytable = r;
+    displayPaytable(r);
+   
+}
+
+
+function clearPicks(){
+     if(readyToPick == false){
+      }else{
+ 
+        for( var i = 1; i< 81;i++){
+             document.getElementById("spot" + i).setAttribute('style', 'background-color: ' + table_background_color);
+        }
+        document.getElementById('middlegamestatus').innerHTML = "";
+        picked = [];
+        matched = [];
+        wager = 0;
+        updateCreditStatus();
+     }
+ }
+
+function clearBoard(){
+    if(readyToPick == false){
+      }else{
+                for( var i = 1; i< 81;i++){
+                    document.getElementById("spot" + i).setAttribute('style', 'background-color: ' + table_background_color);
+                }
+       }
+ }
+ 
+function clearDrawn(){
+    if(readyToPick == false){
+      }else{
+           
+     for( var i = 1; i< 81;i++){
+        document.getElementById("spot" + i).setAttribute('style', 'background-color: ' + table_background_color);
+        document.getElementById("spot" + i).text = i;
+       
+     }
+     for( var i = 0; i< picked.length;i++){
+        document.getElementById("spot" + picked[i]).setAttribute('style', 'background-color: ' + spot_pick_color);
+     }
+       }
+
+}
+ 
+ function clearAll(){
+   
+    if(readyToPick == false){
+      }else{
+        for( var i = 1; i< 81;i++){
+            document.getElementById("spot" + i).setAttribute('style', 'background-color: ' + table_background_color);
+            document.getElementById("spot" + i).text = i;
+            matched=[];
+            picked=[];
+        }
+       }
+
+ }
+ 
+ 
+
+function dabBoard(arr){
+    //  if(clear_board_between_picks == true){
+    //  clearDrawn();
+    //  }
+    matched = [];
+    //document.getElementById('numbers').innerHTML = arr;
+    var i = 0;
+    dly = setInterval(function (){
+        if(i >= arr.length){
+            readyToPick = true;
+            clearInterval(dly);
+            gameDone();
+           
+        }
+        var nomatch = true;
+
+        for(var s = 0; s < picked.length; s++){
+            if ( arr[i] == picked[s] ){
+                //match!
+                nomatch = false;
+                matched.push(picked[s]);
+                document.getElementById("matched").innerHTML = matched;
+                document.getElementById("spot" + picked[s]).setAttribute('style', 'background-color: ' + matched_spot_color);
+                document.getElementById("spot" + picked[s]).text = '✔';
+               
+            }
+        }
+
+        if ( nomatch ){
+                       document.getElementById("spot" + arr[i]).setAttribute('style','background-color: ' + spot_missed_color);
+                       nomatch = false;
+        }
+        updatePaytable();
+        i++;
+    }, 100);
+   
+}
+
+
+    //keno draw numbers
+function drawNumbers(){
+    var arr = [];
+    var s = 0;
+    var returnAllAtOnce = true;
+    var amountToPick = 20;
+   
+            while(arr.length < amountToPick){
+              var r = Math.floor(Math.random()*80) + 1;
+              if(arr.indexOf(r) === -1) arr.push(r);
+            }
+            //alert(arr);
+            return arr;
+}
+
+
+</script>
+
+
+<script>
+
+
+$( document ).ready(function() {
+   
+   $('td').click(function (){
+       if( readyToPick == true){
+   
+             var spot = this.id.replace('spot','');
+             var exists = false;
+             //check if in picked list:
+             for (var i = 0 ; i < picked.length; i++){
+                 if (spot == picked[i]){
+                     //unpick
+                     exists = true;
+                     picked.splice(i, 1);
+                     document.getElementById("spot" + spot).setAttribute('style', 'background-color: ' + table_background_color);
+                     
+                     
+                 }
+             }
+             if (!exists){
+                 if(picked.length < max_pick_count){
+                  picked.push(spot);
+                  document.getElementById("spot" + spot).setAttribute('style', 'background-color: ' + spot_pick_color);
+                 }
+             }
+             updatePaytable()
+             updateButtonStatus();
+         }    
+    });
+});
+   
+function Draw(){
+
+    if(readyToPick == false){
+      }else{
+          if(picked.length > 0 && (credits - wager) > 0 && credits > 0 && wager > 0){
+             updateCreditStatus()
+             document.getElementById('middlegamestatus').innerHTML = "";
+             document.getElementById('controls').disabled = true;
+             clearDrawn();
+             readyToPick = false;
+             credits = credits - wager;
+             updateCreditStatus();
+             dabBoard(drawNumbers());
+          }
+       }
+}
+</script>
